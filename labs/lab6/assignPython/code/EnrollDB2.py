@@ -8,7 +8,7 @@ class EnrollDB:
         try:
             # TODO: Fill in your connection information
             print("Connecting to database.")
-            self.cnx = mysql.connector.connect(user='todo', password='todo', host='cosc304.ok.ubc.ca', database='db_todo')
+            self.cnx = mysql.connector.connect(user='dbrideso', password='87666582', host='cosc304.ok.ubc.ca', database='db_dbrideso')
             return self.cnx
         except mysql.connector.Error as err:  
             print(err)   
@@ -58,9 +58,12 @@ class EnrollDB:
         
         output = "sid, sname, sex, birthdate, gpa"
         cursor = self.cnx.cursor()
-        # TODO: Execute query and build output string                
+        query = "SELECT sid, sname, sex, birthdate, gpa FROM student"
+        cursor.execute(query)
+        for (sid, sname, sex, birthdate, gpa) in cursor:
+            output += "\n"+sid + ", " + sname + ", " + sex + ", "+str(birthdate) + ", " + str(gpa)
+        #end of todo     
         cursor.close()
-        
         return output
 
     def listDeptProfessors(self, deptName):
@@ -71,8 +74,12 @@ class EnrollDB:
            Returns:
                     String containing professor information"""
 
-        # TODO: Execute query and build output string 
-        return ""
+        output = "pname"
+        query = "SELECT pname FROM prof WHERE dname =", str(deptName)
+        cursor.execute(query)
+        for(pname) in cursor:
+            output += "\n"+pname
+        return output
 
     def listCourseStudents(self, courseNum):
         """Returns a String with all students in a given course number (all sections).
